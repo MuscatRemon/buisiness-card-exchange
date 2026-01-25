@@ -23,8 +23,8 @@ jobs:
       #     echo "VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }}" >> .env
       #     echo "VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY=${{ secrets.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY }}" >> .env
 
-      # - name: Test React app
-      #   run: npm run test
+      - name: Test React app
+        run: npm run test
 
       - name: 🏗️ Build React app
         run: npm run build
