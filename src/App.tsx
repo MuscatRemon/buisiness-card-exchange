@@ -1,17 +1,20 @@
 import { Button, HStack } from "@chakra-ui/react";
 import supabase from "./utils/supabase";
+import { useEffect } from "react";
 
 function App() {
-  const supabaseTest = async () => {
-    const { data, error } = await supabase.from("users").select();
-    if (error) {
-      console.error(error);
-      return;
-    }
-    console.log(data);
-  };
+  useEffect(() => {
+    const supabaseTest = async () => {
+      const { data, error } = await supabase.from("users").select();
+      if (error) {
+        console.error(error);
+        return;
+      }
+      console.log(data);
+    };
 
-  supabaseTest();
+    supabaseTest();
+  }, []);
 
   return (
     <>
