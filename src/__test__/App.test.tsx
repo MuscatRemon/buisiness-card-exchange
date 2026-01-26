@@ -20,11 +20,16 @@ vi.mock("@/utils/supabase", () => {
 });
 
 import { render, screen } from "@testing-library/react";
+import { Provider } from "@/components/ui/provider";
 import App from "../App";
 
 describe("App.tsxテスト", () => {
   it("タイトルが表示されている", () => {
-    render(<App />);
+    render(
+      <Provider>
+        <App />
+      </Provider>,
+    );
     expect(screen.getByRole("heading", { name: "h1タイトル" })).toBeDefined();
   });
 });
