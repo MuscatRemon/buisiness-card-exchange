@@ -1,6 +1,6 @@
 import { it, expect, describe, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { Provider } from "@/components/ui/provider";
+import { Provider } from "../components/ui/provider";
 import App from "../App";
 
 let mockDB: [] = [
