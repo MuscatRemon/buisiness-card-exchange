@@ -1,7 +1,7 @@
 import { it, expect, describe, vi } from "vitest";
 
 let mockDB: [] = [
-  // プロジェクトに合った設定をしてください
+  // プロジェクトに合ったDBを記載する
   // { id: 1, title: "React", time: 2 },
   // { id: 2, title: "TEST", time: 4 },
 ];
