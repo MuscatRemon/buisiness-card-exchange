@@ -1,6 +1,4 @@
-import { render, screen } from "@testing-library/react";
 import { it, expect, describe, vi } from "vitest";
-import App from "../App";
 
 let mockDB: [] = [
   // プロジェクトに合った設定をしてください
@@ -20,6 +18,9 @@ vi.mock("@/utils/supabase", () => {
     },
   };
 });
+
+import { render, screen } from "@testing-library/react";
+import App from "../App";
 
 describe("App.tsxテスト", () => {
   it("タイトルが表示されている", () => {
