@@ -28,13 +28,17 @@ export const Cards = () => {
 
   return (
     <Box p={20}>
-      <Stack>
-        <Center fontSize="2xl">user_id:{userData && userData.user_id}</Center>
-        <Center fontSize="2xl">name:{userData && userData.name}</Center>
-        <Center fontSize="2xl">
-          description:{userData && userData.description}
-        </Center>
-      </Stack>
+      {loading ? (
+        <Center fontSize={"2xl"}>Now Loading...</Center>
+      ) : (
+        <Stack>
+          <Center fontSize="2xl">user_id:{userData && userData.user_id}</Center>
+          <Center fontSize="2xl">name:{userData && userData.name}</Center>
+          <Center fontSize="2xl">
+            description:{userData && userData.description}
+          </Center>
+        </Stack>
+      )}
     </Box>
   );
 };
