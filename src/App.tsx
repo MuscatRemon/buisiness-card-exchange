@@ -13,7 +13,7 @@ function App() {
     <Box w="100%" h="100%" backgroundColor="#c5efff">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route path="/" element={<Card />} />
           <Route path="cards">
             <Route index element={<Card />} />
             <Route path=":id" element={<Card />} />
