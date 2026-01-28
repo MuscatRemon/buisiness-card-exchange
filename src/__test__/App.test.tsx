@@ -24,12 +24,12 @@ import { Provider } from "@/components/ui/provider";
 import App from "@/App";
 
 describe("App.tsxテスト", () => {
-  it("タイトルが表示されている", () => {
+  it("ロードが表示されている", () => {
     render(
       <Provider>
         <App />
       </Provider>,
     );
-    expect(screen.getByRole("heading", { name: "h1タイトル" })).toBeDefined();
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 });
