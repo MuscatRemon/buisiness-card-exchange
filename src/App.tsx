@@ -1,6 +1,8 @@
-import { Button, HStack } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { SupabaseTest } from "./lib/spabaseTest";
+import { BrowserRouter, Route, Routes } from "react-router";
+import { Card } from "./components/pages/cards/Card.tsx";
+import { Box } from "@chakra-ui/react";
 
 function App() {
   useEffect(() => {
@@ -8,13 +10,17 @@ function App() {
   }, []);
 
   return (
-    <>
-      <h1>h1タイトル</h1>
-      <HStack>
-        <Button>Click me</Button>
-        <Button>Click me</Button>
-      </HStack>
-    </>
+    <Box w="100%" h="100%" backgroundColor="#c5efff">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="cards">
+            <Route index element={<Card />} />
+            <Route path=":id" element={<Card />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Box>
   );
 }
 

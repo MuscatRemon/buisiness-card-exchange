@@ -4,11 +4,23 @@ import { Users } from "@/domain/users";
 import { GetAllSkill } from "@/lib/skills";
 import { GetUserSkill } from "@/lib/user_skill";
 import { GetUser } from "@/lib/users";
-import { Box, Center, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  Grid,
+  GridItem,
+  Spinner,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import DOMPurify from "dompurify";
+import parse from "html-react-parser";
 
-export const Cards = () => {
+export const Card: React.FC = () => {
   const [userData, setUserData] = useState<Users>();
   const [userSkillData, setUserSkillData] = useState<UserSkill[]>();
   const [allSkill, setAllSkill] = useState<Skill[]>();
@@ -62,29 +74,44 @@ export const Cards = () => {
   }, [user_id]);
 
   return (
-    <Box p={20}>
+    <Center h="100vh" color="#333">
       {loading ? (
-        <Center fontSize={"2xl"}>Now Loading...</Center>
+        <VStack>
+          <Spinner color="#fff" size="xl" borderWidth="5px" />
+          <Text color="#fff" fontSize="4xl">
+            Loading...
+          </Text>
+        </VStack>
       ) : (
-        <Stack>
-          <Center fontSize="2xl">user_id:{userData && userData.user_id}</Center>
-          <Center fontSize="2xl">name:{userData && userData.name}</Center>
-          <Center fontSize="2xl">
-            description:{userData && userData.description}
-          </Center>
-          {userSkillData &&
-            userSkillData.map((userSkill) => {
-              const skill = allSkill?.find(
-                (skill) => skill.id === userSkill.skill_id,
-              );
-              return (
-                <Center key={userSkill.id} fontSize="2xl">
-                  userSkill: {skill?.name}
-                </Center>
-              );
-            })}
-        </Stack>
+        <Box p={8} backgroundColor="#fff" shadow="lg" borderRadius={20}>
+          <Stack>
+            <Grid>
+              <GridItem>氏名</GridItem>
+              <GridItem>{userData && userData.name}</GridItem>
+            </Grid>
+            <Grid>
+              <GridItem>自己紹介</GridItem>
+              <GridItem>
+                {userData && parse(DOMPurify.sanitize(userData.description))}
+              </GridItem>
+            </Grid>
+            <Grid>
+              <GridItem>スキル</GridItem>
+              <GridItem>
+                <Flex gap={2}>
+                  {userSkillData &&
+                    userSkillData.map((userSkill) => {
+                      const skill = allSkill?.find(
+                        (skill) => skill.id === userSkill.skill_id,
+                      );
+                      return <Text key={userSkill.id}>{skill?.name}</Text>;
+                    })}
+                </Flex>
+              </GridItem>
+            </Grid>
+          </Stack>
+        </Box>
       )}
-    </Box>
+    </Center>
   );
 };
