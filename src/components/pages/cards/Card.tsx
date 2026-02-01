@@ -4,21 +4,14 @@ import { Users } from "@/domain/users";
 import { GetAllSkill } from "@/lib/skills";
 import { GetUserSkill } from "@/lib/user_skill";
 import { GetUser } from "@/lib/users";
-import {
-  Box,
-  Center,
-  Flex,
-  Grid,
-  GridItem,
-  Spinner,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Center, Spinner, Stack, Text, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import DOMPurify from "dompurify";
 import parse from "html-react-parser";
+import { SnsLinks } from "@/components/organisms/SnsLinks";
+import { LabelValue } from "@/components/molecules/LabelValue";
+import { SkillsText } from "@/components/organisms/SkillsText";
 
 export const Card: React.FC = () => {
   const [userData, setUserData] = useState<Users>();
@@ -85,30 +78,24 @@ export const Card: React.FC = () => {
       ) : (
         <Box p={8} backgroundColor="#fff" shadow="lg" borderRadius={20}>
           <Stack>
-            <Grid>
-              <GridItem>氏名</GridItem>
-              <GridItem>{userData && userData.name}</GridItem>
-            </Grid>
-            <Grid>
-              <GridItem>自己紹介</GridItem>
-              <GridItem>
-                {userData && parse(DOMPurify.sanitize(userData.description))}
-              </GridItem>
-            </Grid>
-            <Grid>
-              <GridItem>スキル</GridItem>
-              <GridItem>
-                <Flex gap={2}>
-                  {userSkillData &&
-                    userSkillData.map((userSkill) => {
-                      const skill = allSkill?.find(
-                        (skill) => skill.id === userSkill.skill_id,
-                      );
-                      return <Text key={userSkill.id}>{skill?.name}</Text>;
-                    })}
-                </Flex>
-              </GridItem>
-            </Grid>
+            <Text fontSize="2xl" fontWeight="bold" mb={2}>
+              {userData && userData.name}
+            </Text>
+            <LabelValue label="自己紹介">
+              {userData && parse(DOMPurify.sanitize(userData.description))}
+            </LabelValue>
+            {userSkillData && allSkill && (
+              <LabelValue label="スキル">
+                <SkillsText userSkillData={userSkillData} allSkill={allSkill} />
+              </LabelValue>
+            )}
+            <Box mt={2}>
+              <SnsLinks
+                x_id={userData?.x_id}
+                qiita_id={userData?.qiita_id}
+                github_id={userData?.github_id}
+              />
+            </Box>
           </Stack>
         </Box>
       )}
