@@ -4,7 +4,7 @@ import { Users } from "@/domain/users";
 import { GetAllSkill } from "@/lib/skills";
 import { GetUserSkill } from "@/lib/user_skill";
 import { GetUser } from "@/lib/users";
-import { Box, Center, Spinner, Stack, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import DOMPurify from "dompurify";
@@ -12,6 +12,7 @@ import parse from "html-react-parser";
 import { SnsLinks } from "@/components/organisms/SnsLinks";
 import { LabelValue } from "@/components/molecules/LabelValue";
 import { SkillsText } from "@/components/organisms/SkillsText";
+import { Loading } from "@/components/molecules/Loading";
 
 export const Card: React.FC = () => {
   const [userData, setUserData] = useState<Users>();
@@ -69,12 +70,7 @@ export const Card: React.FC = () => {
   return (
     <Center h="100vh" color="#333">
       {loading ? (
-        <VStack>
-          <Spinner color="#fff" size="xl" borderWidth="5px" />
-          <Text color="#fff" fontSize="4xl">
-            Loading...
-          </Text>
-        </VStack>
+        <Loading />
       ) : (
         <Box p={8} backgroundColor="#fff" shadow="lg" borderRadius={20}>
           <Stack>
@@ -85,7 +81,7 @@ export const Card: React.FC = () => {
               {userData && parse(DOMPurify.sanitize(userData.description))}
             </LabelValue>
             {userSkillData && allSkill && (
-              <LabelValue label="スキル">
+              <LabelValue label="好きな技術">
                 <SkillsText userSkillData={userSkillData} allSkill={allSkill} />
               </LabelValue>
             )}
