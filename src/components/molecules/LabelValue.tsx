@@ -1,6 +1,4 @@
 import { Stack, Text } from "@chakra-ui/react";
-import parse from "html-react-parser";
-import DOMPurify from "dompurify";
 
 type Props = {
   label: string;
