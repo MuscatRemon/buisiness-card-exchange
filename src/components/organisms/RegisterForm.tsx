@@ -6,6 +6,8 @@ import { FormSelect } from "../molecules/form/FormSelect";
 import type { Skill } from "@/domain/skills";
 import { InsertUsers } from "@/lib/users";
 import { InsertUserSkill } from "@/lib/user_skill";
+import { toaster } from "../ui/toaster";
+import { useNavigate } from "react-router";
 
 type Props = {
   allSkill?: Skill[];
@@ -14,6 +16,7 @@ type Props = {
 
 export const RegisterForm = (props: Props) => {
   const { allSkill, skillLoading } = props;
+  const navigate = useNavigate();
 
   const {
     register,
@@ -39,9 +42,17 @@ export const RegisterForm = (props: Props) => {
     try {
       await InsertUsers(userData);
       await InsertUserSkill(userSkillData);
+      toaster.create({
+        description: `名刺作成しました\nあなたのIDは"${data.user_id}"です`,
+        type: "success",
+        closable: true,
+        duration: 60000,
+      });
       reset();
+      navigate("/");
     } catch (e) {
       console.error("登録に失敗しました", e);
+      toaster.create({ title: "名刺作成に失敗しました", type: "error" });
     }
   };
 

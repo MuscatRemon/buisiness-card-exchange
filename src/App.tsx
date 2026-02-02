@@ -3,6 +3,7 @@ import { Card } from "./components/pages/cards/Card.tsx";
 import { Box } from "@chakra-ui/react";
 import { Top } from "./components/pages/Top.tsx";
 import { Register } from "./components/pages/Register.tsx";
+import { Toaster } from "./components/ui/toaster.tsx";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <Toaster />
     </Box>
   );
 }
