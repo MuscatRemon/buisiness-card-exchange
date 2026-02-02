@@ -27,9 +27,7 @@ export const GetUser = async (user_id: string) => {
     .select()
     .eq("user_id", user_id)
     .single();
-  if (error) {
-    throw new Error(error.message);
-  }
+  if (error) throw new Error(error.message);
 
   const user = data;
 
@@ -43,4 +41,17 @@ export const GetUser = async (user_id: string) => {
   );
 
   return userData;
+};
+
+export const InsertUsers = async (userData: Users) => {
+  const { error } = await supabase.from("users").insert({
+    user_id: userData.user_id,
+    name: userData.name,
+    description: userData.description,
+    github_id: userData.github_id,
+    qiita_id: userData.qiita_id,
+    x_id: userData.x_id,
+  });
+
+  if (error) throw new Error(error.message);
 };

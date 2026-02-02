@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { FormInput } from "../molecules/form/FormInput";
 import { FormSelect } from "../molecules/form/FormSelect";
 import type { Skill } from "@/domain/skills";
+import { InsertUsers } from "@/lib/users";
+import { InsertUserSkill } from "@/lib/user_skill";
 
 type Props = {
   allSkill?: Skill[];
@@ -16,14 +18,31 @@ export const RegisterForm = (props: Props) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<RegisterFormValues>();
 
   const onSubmit = async (data: RegisterFormValues) => {
-    console.log(data);
-    // await updateRecord(editRecord.id, data.title, data.time);
-    // await onUpdated();
-    // onClose();
+    const userData = {
+      user_id: data.user_id,
+      name: data.name,
+      description: data.description,
+      github_id: data.github_id,
+      qiita_id: data.qiita_id,
+      x_id: data.x_id,
+    };
+    const userSkillData = {
+      user_id: data.user_id,
+      skill_id: data.skill,
+    };
+
+    try {
+      await InsertUsers(userData);
+      await InsertUserSkill(userSkillData);
+      reset();
+    } catch (e) {
+      console.error("登録に失敗しました", e);
+    }
   };
 
   return (

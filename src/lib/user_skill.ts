@@ -16,3 +16,12 @@ export const GetUserSkill = async (user_id: string) => {
 
   return userSkills;
 };
+
+export const InsertUserSkill = async (userSkillData: Omit<UserSkill, "id">) => {
+  const { error } = await supabase.from("user_skill").insert({
+    user_id: userSkillData.user_id,
+    skill_id: userSkillData.skill_id,
+  });
+
+  if (error) throw new Error(error.message);
+};

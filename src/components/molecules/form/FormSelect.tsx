@@ -40,7 +40,7 @@ export const FormSelect = (props: Props) => {
             <NativeSelect.Field {...fieldProps}>
               {allSkill &&
                 allSkill.map((skill) => (
-                  <option key={skill.id} value={skill.name}>
+                  <option key={skill.id} value={skill.id}>
                     {skill.name}
                   </option>
                 ))}
