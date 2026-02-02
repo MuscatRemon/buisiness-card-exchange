@@ -11,7 +11,7 @@ export const LabelValue = (props: Props) => {
   return (
     <Stack gap={0}>
       <Text fontWeight="bold">{label}</Text>
-      <Text>{children}</Text>
+      {children}
     </Stack>
   );
 };
