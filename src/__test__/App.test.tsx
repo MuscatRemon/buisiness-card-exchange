@@ -30,6 +30,6 @@ describe("App.tsxテスト", () => {
         <App />
       </Provider>,
     );
-    expect(screen.getByText("Top")).toBeInTheDocument();
+    expect(screen.getByText("新規名刺登録")).toBeInTheDocument();
   });
 });
