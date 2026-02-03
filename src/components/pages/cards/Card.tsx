@@ -4,9 +4,9 @@ import { Users } from "@/domain/users";
 import { GetAllSkill } from "@/lib/skills";
 import { GetUserSkill } from "@/lib/user_skill";
 import { GetUser } from "@/lib/users";
-import { Box, Center, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import DOMPurify from "dompurify";
 import parse from "html-react-parser";
 import { SnsLinks } from "@/components/organisms/SnsLinks";
@@ -21,6 +21,8 @@ export const Card: React.FC = () => {
   let params = useParams();
   const user_id = params.id;
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user_id) return;
@@ -92,6 +94,11 @@ export const Card: React.FC = () => {
                 github_id={userData?.github_id}
               />
             </Box>
+            <Center w="full" mt={4}>
+              <Button colorPalette="blue" onClick={() => navigate("/")}>
+                戻る
+              </Button>
+            </Center>
           </Stack>
         </Box>
       )}
